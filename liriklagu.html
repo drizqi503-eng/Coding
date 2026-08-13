@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lirik Otomatis - The Virgin</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #0d0d11;
+            color: #f1f1f5;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0; padding: 40px 20px;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+        }
+        .music-card {
+            background: linear-gradient(145deg, #181822, #12121a);
+            max-width: 500px; width: 100%;
+            border-radius: 24px; padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+        .title { font-size: 24px; color: #ff477e; margin: 0 0 8px 0; }
+        .artist { font-size: 16px; color: #a0a0b0; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 71, 126, 0.3), transparent); margin: 25px 0; border: none; }
+        
+        /* Area tampilan lirik aktif */
+        #lyric-display {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #fff;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .highlight { color: #ff477e; font-weight: bold; }
+        .btn-start {
+            background: #ff477e; color: white; border: none;
+            padding: 10px 20px; border-radius: 20px; cursor: pointer;
+            font-weight: bold; margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="music-card">
+    <div class="header">
+        <h1 class="title">Cinta Terlarang</h1>
+        <p class="artist">The Virgin</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Tempat lirik akan berganti secara otomatis -->
+    <div id="lyric-display">Klik tombol di bawah untuk mulai memutar lirik...</div>
+    
+    <button class="btn-start" onclick="mulaiLirik()">Putar Lirik</button>
+</div>
+
+<script>
+// Daftar lirik dan jeda waktu tampilnya (dalam milidetik. 3000 = 3 detik)
+const daftarLirik = [
+    { teks: "Kau kan selalu di hatiku...", durasi: 3500 },
+    { teks: "Meski dirimu milik sahabatku...", durasi: 4000 },
+    { teks: "Cobalah mengerti keadaan ini", durasi: 3500 },
+    { teks: "Jangan pernah engkau menangis lagi", durasi: 3500 },
+    { teks: "Karena kita takkan pernah bersama", durasi: 3500 },
+    { teks: "Biar kisah ini hilang selamanya...", durasi: 4000 },
+    { teks: "<span class='highlight'>[Chorus]<br>Tuhan, tolong aku, katakan padanya</span>", durasi: 4000 },
+    { teks: "<span class='highlight'>Aku cinta dia, tapi dia milik sahabatku</span>", durasi: 4500 },
+    { teks: "<span class='highlight'>Dilema hatiku, andai ku bisa</span>", durasi: 3500 },
+    { teks: "<span class='highlight'>Memutar kembali waktu yang tlah lalu...</span>", durasi: 5000 },
+    { teks: "Selesai ✨", durasi: 3000 }
+];
+
+let indeks = 0;
+const tampilan = document.getElementById("lyric-display");
+
+function mulaiLirik() {
+    indeks = 0;
+    tampilkanBaris();
+}
+
+function tampilkanBaris() {
+    if (indeks < daftarLirik.length) {
+        tampilan.innerHTML = daftarLirik[indeks].teks;
+        
+        // Mengatur waktu kapan baris berikutnya akan muncul
+        setTimeout(() => {
+            indeks++;
+            tampilkanBaris();
+        }, daftarLirik[indeks].durasi);
+    }
+}
+</script>
+
+</body>
+</html>

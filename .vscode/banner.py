@@ -1,0 +1,349 @@
+import os
+
+html_content = """<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Dirgahayu Republik Indonesia</title>
+    <style>
+        /* CSS Reset & Setup Dimensi Banner 500cm x 250cm */
+        @page {
+            size: 500cm 250cm;
+            margin: 0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 5000px;
+            height: 2500px;
+            font-family: 'Montserrat', 'Arial Black', sans-serif;
+            background: #f8f9fa;
+            color: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Container Banner Utama */
+        .banner-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: linear-gradient(135deg, #a70014 0%, #d6001c 45%, #e61935 70%, #8b0000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 120px 200px;
+            overflow: hidden;
+        }
+
+        /* Latar Belakang Gelombang Merah Putih & Elemen Dekoratif */
+        .bg-wave-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 900px;
+            background: #ffffff;
+            clip-path: polygon(0 40%, 100% 15%, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        .bg-wave-accent {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1050px;
+            background: rgba(255, 255, 255, 0.2);
+            clip-path: polygon(0 20%, 100% 35%, 100% 100%, 0% 100%);
+            z-index: 1;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        /* Frame / Border Emas */
+        .banner-frame {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            border: 8px solid rgba(255, 215, 0, 0.6);
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .banner-frame-inner {
+            position: absolute;
+            top: 55px;
+            left: 55px;
+            right: 55px;
+            bottom: 55px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Header Logo & Tanggal */
+        .header-section {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge-date {
+            background: rgba(0, 0, 0, 0.35);
+            border: 3px solid #ffd700;
+            padding: 25px 60px;
+            border-radius: 100px;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+        }
+
+        .badge-ri {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #ffffff;
+            padding: 20px 50px;
+            border-radius: 100px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .badge-ri-text {
+            color: #d6001c;
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        /* Konten Utama (Teks Dirgahayu) */
+        .main-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            margin-top: -50px;
+        }
+
+        .garuda-container {
+            margin-bottom: 30px;
+        }
+
+        .garuda-icon {
+            width: 280px;
+            height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+        }
+
+        .sub-heading {
+            font-size: 85px;
+            font-weight: 800;
+            letter-spacing: 18px;
+            text-transform: uppercase;
+            color: #ffe600;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 30px rgba(255,230,0,0.4);
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            font-size: 160px;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 
+                0 10px 30px rgba(0,0,0,0.7),
+                4px 4px 0px #8b0000;
+            margin-bottom: 20px;
+        }
+
+        .republic-title {
+            font-size: 110px;
+            font-weight: 900;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ribbons & Slogan */
+        .footer-section {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .slogan-box {
+            display: inline-block;
+            background: linear-gradient(90deg, #111111 0%, #2b2b2b 50%, #111111 100%);
+            border: 4px solid #ffd700;
+            padding: 30px 100px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+
+        .slogan-text {
+            font-size: 55px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .slogan-highlight {
+            color: #ffd700;
+        }
+
+        .year-text {
+            font-size: 45px;
+            font-weight: 700;
+            color: #d6001c;
+            margin-top: 60px;
+            letter-spacing: 4px;
+        }
+
+        /* Bendera Merah Putih Ilustrasi Samping */
+        .flag-left, .flag-right {
+            position: absolute;
+            top: 25%;
+            width: 450px;
+            height: 600px;
+            z-index: 3;
+            opacity: 0.85;
+        }
+
+        .flag-left {
+            left: 120px;
+            transform: rotate(-12deg);
+        }
+
+        .flag-right {
+            right: 120px;
+            transform: rotate(12deg) scaleX(-1);
+        }
+
+        /* SVG Flag Graphic */
+        .flag-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner-container">
+        <!-- Background Accents -->
+        <div class="bg-pattern"></div>
+        <div class="bg-wave-accent"></div>
+        <div class="bg-wave-bottom"></div>
+
+        <!-- Frame Borders -->
+        <div class="banner-frame"></div>
+        <div class="banner-frame-inner"></div>
+
+        <!-- Flag Graphics Left & Right -->
+        <div class="flag-left">
+            <svg class="flag-svg" viewBox="0 0 200 300">
+                <path d="M10,10 L10,290" stroke="#ffd700" stroke-width="8" stroke-linecap="round"/>
+                <path d="M10,20 C60,5 110,35 180,20 L180,90 C110,105 60,75 10,90 Z" fill="#d6001c"/>
+                <path d="M10,90 C60,75 110,105 180,90 L180,160 C110,175 60,145 10,160 Z" fill="#ffffff" stroke="#eee" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <div class="flag-right">
+            <svg class="flag-svg" viewBox="0 0 200 300">
+                <path d="M10,10 L10,290" stroke="#ffd700" stroke-width="8" stroke-linecap="round"/>
+                <path d="M10,20 C60,5 110,35 180,20 L180,90 C110,105 60,75 10,90 Z" fill="#d6001c"/>
+                <path d="M10,90 C60,75 110,105 180,90 L180,160 C110,175 60,145 10,160 Z" fill="#ffffff" stroke="#eee" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <!-- Header Section -->
+        <div class="header-section">
+            <div class="badge-ri">
+                <svg width="50" height="50" viewBox="0 0 24 24" fill="#d6001c">
+                    <path d="M12 2L2 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V7l-10-5z"/>
+                </svg>
+                <span class="badge-ri-text">17 AGUSTUS 1945</span>
+            </div>
+            <div class="badge-date">
+                17 AGUSTUS 2026
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Garuda Emblem SVG -->
+            <div class="garuda-container">
+                <svg class="garuda-icon" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#ffd700" stroke="#ffffff" stroke-width="3"/>
+                    <!-- Shield -->
+                    <path d="M35,35 L65,35 L65,55 C65,65 50,75 50,75 C50,75 35,65 35,55 Z" fill="#d6001c" stroke="#ffffff" stroke-width="2"/>
+                    <path d="M50,35 L50,75" stroke="#ffffff" stroke-width="2"/>
+                    <path d="M35,50 L65,50" fill="none" stroke="#ffffff" stroke-width="2"/>
+                    <!-- Star -->
+                    <polygon points="50,38 52,43 57,43 53,46 55,51 50,48 45,51 47,46 43,43 48,43" fill="#ffd700"/>
+                    <!-- Ribbon -->
+                    <path d="M25,80 Q50,88 75,80 L70,85 Q50,92 30,85 Z" fill="#ffffff" stroke="#cccccc"/>
+                    <text x="50" y="85" font-size="4" font-weight="bold" fill="#000" text-anchor="middle">BHINNEKA TUNGGAL IKA</text>
+                </svg>
+            </div>
+
+            <div class="sub-heading">HUT REPUBLIK INDONESIA</div>
+            <div class="main-title">DIRGAHAYU</div>
+            <div class="republic-title">REPUBLIK INDONESIA</div>
+        </div>
+
+        <!-- Footer / Slogan Section -->
+        <div class="footer-section">
+            <div class="slogan-box">
+                <div class="slogan-text">
+                    <span class="slogan-highlight">NUSANTARA BARU</span> &bull; INDONESIA MAJU
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+"""
+
+# Save HTML file
+html_filename = "banner_dirgahayu_ri_500x250cm.html"
+with open(html_filename, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML banner generated successfully: {html_filename}")

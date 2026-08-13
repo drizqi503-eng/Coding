@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Situs Gak Jelas Murni HTML</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffde59;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 10px 10px 0px black;
+            max-width: 500px;
+            height: 250px;
+        }
+        
+        /* Area jebakan untuk tombol */
+        .area-tombol {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            margin-top: 20px;
+        }
+
+        /* Desain Awal Tombol */
+        .tombol-gaib {
+            position: absolute;
+            left: 35%;
+            top: 30%;
+            background-color: #8c52ff;
+            color: white;
+            border: 3px solid black;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.1s ease; /* Bikin gerakan pindahnya instan */
+        }
+
+        /* TRIK UTAMA: Pas kursor mendekat, tombolnya pindah tempat & berubah ukuran */
+        .tombol-gaib:hover {
+            left: 70%;
+            top: -20%;
+            transform: scale(0.2); /* Tombolnya mengecil jadi kurus layu */
+            background-color: #ff5757;
+            content: "YEE GAK BISA"; /* Mengubah teks (di beberapa browser) */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Kamu mau gak jadi pacarku?</h3>
+        <p>Coba klik tombol di bawah ini:</p>
+        
+        <div class="area-tombol">
+            <button class="tombol-gaib">KLIK DISINI!</button>
+        </div>
+    </div>
+
+</body>
+</html>
