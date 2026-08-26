@@ -3,69 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Situs Gak Jelas Murni HTML</title>
+    <title>SPMB Universitas Rizqi Dwi</title>
     <style>
+        :root {
+            --primary: #1b4d3e;      /* Hijau Rumput Stadion */
+            --primary-dark: #0f3026; /* Hijau Gelap */
+            --accent: #e6b800;       /* Emas Emas / Trophy Gold */
+            --accent-light: #fff5cc;
+            --secondary: #1e293b;
+            --light-bg: #f4f7f5;
+            --white: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --border-color: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #ffde59;
-            color: #333;
-            text-align: center;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.5;
         }
-        .container {
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
+
+        /* Header / Navbar */
+        .header {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 18px 40px;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            margin-right: 12px;
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--white);
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+        }
+
+        .badge-open {
+            background-color: var(--accent);
+            color: var(--primary-dark);
+            padding: 6px 14px;
             border-radius: 20px;
-            box-shadow: 10px 10px 0px black;
-            max-width: 500px;
-            height: 250px;
-        }
-        
-        /* Area jebakan untuk tombol */
-        .area-tombol {
-            position: relative;
-            width: 100%;
-            height: 150px;
-            margin-top: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
         }
 
-        /* Desain Awal Tombol */
-        .tombol-gaib {
-            position: absolute;
-            left: 35%;
-            top: 30%;
-            background-color: #8c52ff;
-            color: white;
-            border: 3px solid black;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
+        /* Hero Banner */
+        .hero {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: #d1fae5;
+            max-width: 650px;
+            margin: 0 auto 20px auto;
+        }
+
+        .hero-stats {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #e2e8f0;
+            text-transform: uppercase;
+        }
+
+        /* Container & Layout */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .quote-box {
+            background-color: var(--accent-light);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .quote-text {
+            font-style: italic;
+            color: #744210;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
             border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.1s ease; /* Bikin gerakan pindahnya instan */
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
-        /* TRIK UTAMA: Pas kursor mendekat, tombolnya pindah tempat & berubah ukuran */
-        .tombol-gaib:hover {
-            left: 70%;
-            top: -20%;
-            transform: scale(0.2); /* Tombolnya mengecil jadi kurus layu */
-            background-color: #ff5757;
-            content: "YEE GAK BISA"; /* Mengubah teks (di beberapa browser) */
+        .card-header {
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        /* Faculty List */
+        .faculty-item {
+            padding: 12px;
+            background: var(--light-bg);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .faculty-name {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 14px;
+        }
+
+        .faculty-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 13px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: #fafafa;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Process Steps */
+        .step-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: #94a3b8;
+            text-align: center;
+            padding: 24px;
+            font-size: 12px;
+            margin-top: 40px;
+            border-top: 4px solid var(--accent);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h3>Kamu mau gak jadi pacarku?</h3>
-        <p>Coba klik tombol di bawah ini:</p>
-        
-        <div class="area-tombol">
-            <button class="tombol-gaib">KLIK DISINI!</button>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-area">
+                <span class="logo-icon">⚽</span>
+                <div>
+                    <h1 class="brand-name">UNIVERSITAS RIZQI DWI</h1>
+                    <span class="brand-tagline">Kampus Para Juara &amp; Talenta Masa Depan</span>
+                </div>
+            </div>
+            <div>
+                <span class="badge-open">SPMB 2026/2027 DIBUKA</span>
+            </div>
         </div>
-    </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <h2 class="hero-title">Sistem Penerimaan Mahasiswa Baru (SPMB)</h2>
+        <p class="hero-subtitle">Bermainlah dengan Strategi, Raih Cita-cita setinggi Juara Liga. Bergabunglah bersama Universitas Rizqi Dwi!</p>
+        
+        <div class="hero-stats">
+            <div>
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Fasilitas Standar FIFA</div>
+            </div>
+            <div>
+                <div class="stat-number">A+</div>
+                <div class="stat-label">Akreditasi Kampus</div>
+            </div>
+            <div>
+                <div class="stat-number">5.000+</div>
+                <div class="stat-label">Mahasiswa Berprestasi</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        
+        <div class="quote-box">
+            <p class="quote-text">⚽ "Di Lapangan Kita Bertanding, Di Kampus Kita Bertumbuh Jadi Pemimpin!"</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Information Column -->
+            <div>
+                <!-- Card: Program Studi -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Fakultas &amp; Program Studi Unggulan</h3>
+                    </div>
+
+                    <div class="faculty-item">
+                        <div class="faculty-name">1. Olahraga &amp; Manajemen Industri Sepak Bola</div>
+                        <div class="faculty-desc">Fokus pada sains olahraga, taktik sepak bola modern, dan manajemen klub professional.</div>
+                    </div>
+
+                    <div class="faculty-item">
+                        <div class="faculty-name">2. Teknik Informatika &amp; Digital Analytics</div>
+                        <div class="faculty-desc">Mengembangkan teknologi analisis data pertandingan, AI olahraga, dan software modern.</div>
+                    </div>
+
+                    <div class="faculty-item">
+                        <div class="faculty-name">3. Ekonomi &amp; Bisnis Olahraga</div>
+                        <div class="faculty-desc">Mempelajari strategi pemasaran, sponsorship, dan manajemen finansial industri kreatif.</div>
+                    </div>
+
+                    <div class="faculty-item">
+                        <div class="faculty-name">4. Ilmu Komunikasi &amp; Jurnalistik Olahraga</div>
+                        <div class="faculty-desc">Menciptakan jurnalis, media officer, dan broadcasting specialist bidang olahraga.</div>
+                    </div>
+                </div>
+
+                <!-- Card: Alur Pendaftaran -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Alur Pendaftaran (Kick-off to Final)</h3>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-text"><strong>Formulir Online:</strong> Isi formulir pendaftaran di bagian kanan halaman ini.</div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-text"><strong>Verifikasi Berkas:</strong> Tim seleksi memeriksa dokumen akademis &amp; bakatmu.</div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-text"><strong>Tes Seleksi:</strong> Ujian potensi akademik online &amp; tes bakat.</div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-text"><strong>Kelulusan:</strong> Pengumuman resmi kelulusan di portal pendaftar.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Formulir Pendaftaran</h3>
+                    </div>
+                    
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" placeholder="Masukkan nama sesuai ijazah" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Aktif</label>
+                            <input type="email" class="form-control" placeholder="contoh@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Nomor WhatsApp</label>
+                            <input type="tel" class="form-control" placeholder="08xxxxxxxxxx" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Pilihan Program Studi</label>
+                            <select class="form-control" required>
+                                <option value="">-- Pilih Program Studi --</option>
+                                <option value="1">Olahraga &amp; Manajemen Sepak Bola</option>
+                                <option value="2">Teknik Informatika &amp; Data Sport</option>
+                                <option value="3">Ekonomi &amp; Bisnis Olahraga</option>
+                                <option value="4">Ilmu Komunikasi &amp; Jurnalistik</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Jalur Pendaftaran</label>
+                            <select class="form-control" required>
+                                <option value="reguler">Jalur Reguler / Akademik</option>
+                                <option value="prestasi">Jalur Beasiswa Atlet/Bakat</option>
+                                <option value="undangan">Jalur Undangan Sekolah</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Daftar Sekarang ⚽</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>Universitas Rizqi Dwi</strong> &copy; 2026. All Rights Reserved.</p>
+        <p>Jl. Stadion Utama No. 10, Kompleks Olahraga | Email: spmb@rizqidwi.ac.id</p>
+    </footer>
 
 </body>
 </html>
