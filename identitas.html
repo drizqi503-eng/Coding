@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio | Rizqi Dwi Kurniawan</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --border-color: #334155;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.25rem;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    .hero {
+      padding: 4rem 0 3rem;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.025em;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 1.75rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #0f172a;
+      padding: 0.6rem 1.25rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    section {
+      margin-top: 3.5rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 1.25rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 0.6rem;
+    }
+
+    .about-text {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background-color: var(--border-color);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Rizqi Dwi K.</div>
+    <nav>
+      <a href="#tentang">Tentang</a>
+      <a href="#proyek">Proyek</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Halo, saya Rizqi Dwi Kurniawan</h1>
+      <p>Pengembang web dan desainer yang fokus menciptakan antarmuka digital yang bersih, fungsional, dan intuitif.</p>
+      <a href="#proyek" class="btn">Lihat Karya</a>
+    </section>
+
+    <section id="tentang">
+      <h2>Tentang Saya</h2>
+      <p class="about-text">
+        Saya aktif dalam eksplorasi pengembangan web modern, perancangan desain grafis, dan pengelolaan proyek digital. Fokus utama saya adalah membangun pengalaman pengguna yang efisien serta mudah diakses.
+      </p>
+    </section>
+
+    <section id="proyek">
+      <h2>Proyek Pilihan</h2>
+      <div class="projects-grid">
+        
+        <div class="card">
+          <h3>Sistem Informasi Web</h3>
+          <p>Pengembangan antarmuka portal informasi yang responsif dan terstruktur.</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Desain Identitas Visual</h3>
+          <p>Konsep tata letak kreatif dan perancangan materi visual terpadu.</p>
+          <div class="tags">
+            <span class="tag">Graphic Design</span>
+            <span class="tag">Layout</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Aplikasi Antarmuka</h3>
+          <p>Eksplorasi komponen UI/UX untuk aplikasi berbasis web yang fleksibel.</p>
+          <div class="tags">
+            <span class="tag">UI/UX</span>
+            <span class="tag">Web Design</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="kontak">
+      <h2>Hubungi Saya</h2>
+      <p class="about-text">
+        Terbuka untuk kolaborasi proyek web atau diskusi ide desain visual.
+      </p>
+      <p style="margin-top: 1rem;">
+        <a href="mailto:drizqi503@gmail.com" class="btn">Kirim Email</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Rizqi Dwi Kurniawan. Dibuat dengan HTML & CSS.</p>
+  </footer>
+
+</body>
+</html>

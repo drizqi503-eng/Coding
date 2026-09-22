@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Personal Website</title>
+    <!-- FontAwesome untuk Icon Media Sosial -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b, #311042);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background Glow */
+        .glow-1, .glow-2 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+        }
+        .glow-1 {
+            background: #a855f7;
+            top: 10%;
+            left: 15%;
+        }
+        .glow-2 {
+            background: #06b6d4;
+            bottom: 10%;
+            right: 15%;
+        }
+
+        /* Container Glassmorphism */
+        .card-container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .card-container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Photo Profile */
+        .avatar-box {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: #22c55e;
+            border: 3px solid #0f172a;
+            border-radius: 50%;
+        }
+
+        /* Profile Info */
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #38bdf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .about-me {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* Social Media Buttons */
+        .social-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-social i {
+            font-size: 1.2rem;
+        }
+
+        /* Specific Brand Colors on Hover */
+        .tiktok {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .tiktok:hover {
+            background: #000000;
+            border-color: #fe2c55;
+            box-shadow: -2px 2px 10px #25f4ee, 2px -2px 10px #fe2c55;
+        }
+
+        .whatsapp {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .whatsapp:hover {
+            background: #25d366;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+        }
+
+        .instagram {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            box-shadow: 0 0 15px rgba(220, 39, 67, 0.5);
+        }
+
+        footer {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Glow Effects -->
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <!-- Main Card -->
+    <div class="card-container">
+        <!-- Foto Profil -->
+        <div class="avatar-box">
+            <!-- Ganti URL gambar di bawah dengan foto kamu -->
+            <img src="https://via.placeholder.com/150" alt="Foto Profil Rizqi">
+            <div class="status-badge" title="Online"></div>
+        </div>
+
+        <!-- Nama & Umur -->
+        <h1>Rizqi Dwi Kurniawan</h1>
+        <div class="age-badge">
+            <i class="fa-solid fa-cake-candles"></i> 16 Tahun
+        </div>
+
+        <!-- Deskripsi/Inti Tentang Saya -->
+        <p class="about-me">
+            Halo! Saya adalah seorang pelajar aktif yang selalu penasaran dengan hal-hal baru. Memiliki ketertarikan tinggi pada perkembangan teknologi, dinamika sosial, serta eksplorasi ide-ide kreatif untuk masa depan.
+        </p>
+
+        <!-- Link Sosial Media -->
+        <div class="social-title">Connect With Me</div>
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@username_kamu" target="_blank" class="btn-social tiktok">
+                <i class="fa-brands fa-tiktok"></i> TikTok
+            </a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="btn-social whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.instagram.com/username_kamu" target="_blank" class="btn-social instagram">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+        </div>
+
+        <footer>
+            &copy; 2026 Rizqi Dwi Kurniawan. All rights reserved.
+        </footer>
+    </div>
+
+</body>
+</html>

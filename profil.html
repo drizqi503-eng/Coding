@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizqi Dwi Kurniawan | Profil & Portofolio</title>
+    
+    <!-- Google Fonts: Poppins & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        space: {
+                            900: '#030712',
+                            800: '#0b1329',
+                            700: '#111d40',
+                            600: '#1e295b',
+                        },
+                        neon: {
+                            blue: '#38bdf8',
+                            cyan: '#06b6d4',
+                            indigo: '#6366f1',
+                            purple: '#a855f7'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        glow: {
+                            '0%': { filter: 'drop-shadow(0 0 10px rgba(56, 189, 248, 0.4))' },
+                            '100%': { filter: 'drop-shadow(0 0 25px rgba(56, 189, 248, 0.8))' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS Styles -->
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e295b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        /* Glassmorphism class */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(56, 189, 248, 0.5);
+            box-shadow: 0 15px 35px 0 rgba(56, 189, 248, 0.25);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-space-900 text-slate-100 font-sans min-h-screen overflow-x-hidden selection:bg-neon-blue selection:text-space-900">
+
+    <!-- Interactive Space Starfield Canvas Background -->
+    <canvas id="starfield" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Canvas Control Floating Controls -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
+        <div id="starControls" class="hidden glass-card p-3 rounded-2xl flex flex-col gap-2 shadow-2xl transition-all duration-300">
+            <span class="text-xs font-semibold text-slate-300 mb-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-sliders text-neon-blue"></i> Efek Bintang Biru
+            </span>
+            <div class="flex items-center gap-2">
+                <button onclick="setStarSpeed(0.3)" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition">Santai</button>
+                <button onclick="setStarSpeed(1)" class="text-xs px-2.5 py-1 rounded-lg bg-neon-blue/20 text-neon-blue border border-neon-blue/40 font-medium">Normal</button>
+                <button onclick="setStarSpeed(3.5)" class="text-xs px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 transition">Hyperspace</button>
+            </div>
+        </div>
+        <button onclick="toggleStarControls()" class="glass-card w-12 h-12 rounded-full flex items-center justify-center text-neon-blue hover:text-white transition-all shadow-lg hover:scale-110 active:scale-95" title="Pengaturan Latar Bintang">
+            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Floating Glass Navbar -->
+    <header class="fixed top-5 inset-x-0 z-50 flex justify-center px-4">
+        <nav class="glass-card px-4 py-2.5 rounded-full flex items-center justify-between gap-4 max-w-4xl w-full transition-all duration-300">
+            <!-- Logo / Monogram -->
+            <a href="#home" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-white shadow-md shadow-cyan-500/30 group-hover:scale-105 transition-transform">
+                    RDK
+                </div>
+                <span class="font-bold text-slate-100 hidden sm:inline tracking-wide group-hover:text-neon-blue transition-colors">
+                    Rizqi Dwi K.
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-1 text-sm font-medium">
+                <a href="#home" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition">Beranda</a>
+                <a href="#tentang" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition">Tentang Saya</a>
+                <a href="#kehidupan" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition">Kehidupan</a>
+                <a href="#hobi" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition">Hobi & Minat</a>
+            </div>
+
+            <!-- Action CTA & Mobile Menu Toggle -->
+            <div class="flex items-center gap-2">
+                <button onclick="openContactModal()" class="px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium text-sm shadow-md shadow-cyan-500/25 hover:shadow-cyan-500/40 transition duration-300 flex items-center gap-2">
+                    <i class="fa-regular fa-paper-plane text-xs"></i>
+                    <span>Kontak</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden w-9 h-9 rounded-full bg-slate-800/80 text-slate-300 flex items-center justify-center hover:text-white">
+                    <i class="fa-solid fa-bars" id="menuIcon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="fixed inset-x-4 top-20 z-40 hidden glass-card p-5 rounded-2xl flex flex-col gap-3 md:hidden shadow-2xl border border-slate-700">
+        <a href="#home" onclick="toggleMobileMenu()" class="px-4 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-3">
+            <i class="fa-solid fa-house text-neon-blue w-5"></i> Beranda
+        </a>
+        <a href="#tentang" onclick="toggleMobileMenu()" class="px-4 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-3">
+            <i class="fa-solid fa-user text-neon-blue w-5"></i> Tentang Saya
+        </a>
+        <a href="#kehidupan" onclick="toggleMobileMenu()" class="px-4 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-3">
+            <i class="fa-solid fa-compass text-neon-blue w-5"></i> Kehidupan
+        </a>
+        <a href="#hobi" onclick="toggleMobileMenu()" class="px-4 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-3">
+            <i class="fa-solid fa-gamepad text-neon-blue w-5"></i> Hobi & Minat
+        </a>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="relative z-10 pt-28 pb-16 px-4 max-w-6xl mx-auto space-y-24">
+
+        <!-- 1. HERO SECTION -->
+        <section id="home" class="min-h-[85vh] flex flex-col items-center justify-center text-center relative pt-8">
+            
+            <!-- Status Badge Indicator -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-medium text-slate-200 mb-8 border border-emerald-500/30 animate-pulse-slow">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <span>Aktif & Siap Berkolaborasi</span>
+            </div>
+
+            <!-- Profile Avatar Frame with Cosmic Glow -->
+            <div class="relative mb-8 group">
+                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 blur-lg opacity-70 group-hover:opacity-100 transition duration-500 animate-glow"></div>
+                <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-slate-900 border-2 border-slate-700 p-1 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <!-- Stylized Vector Profile Placeholder -->
+                    <div class="w-full h-full rounded-full bg-gradient-to-br from-slate-900 via-space-800 to-indigo-950 flex flex-col items-center justify-center relative">
+                        <i class="fa-solid fa-user-astronaut text-5xl sm:text-6xl text-cyan-400 mb-1"></i>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Rizqi Dwi K.</span>
+                    </div>
+                </div>
+                <!-- Floating Decorative Tag -->
+                <div class="absolute -bottom-2 -right-2 glass-card px-3 py-1 rounded-full text-xs font-semibold text-cyan-300 border border-cyan-500/40 shadow-lg">
+                    ⚡ Tech Enthusiast
+                </div>
+            </div>
+
+            <!-- Main Name Headline -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 text-gradient">
+                Rizqi Dwi Kurniawan
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light mb-8 leading-relaxed">
+                Pelajar yang antusias menggabungkan potensi <span class="text-cyan-400 font-medium">Teknologi</span>, kecintaan pada <span class="text-emerald-400 font-medium">Perternakan Ayam Petelur</span>, dan semangat untuk <span class="text-indigo-400 font-medium">Sepak Bola</span>.
+            </p>
+
+            <!-- Main Action Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-10">
+                <button onclick="openContactModal()" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-semibold shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2.5">
+                    <i class="fa-solid fa-address-book"></i>
+                    <span>Pilihan Kontak</span>
+                </button>
+                <a href="#tentang" class="px-7 py-3.5 rounded-full glass-card hover:bg-white/10 text-slate-200 font-semibold border border-slate-700/60 hover:border-slate-500 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2">
+                    <span>Jelajahi Profil</span>
+                    <i class="fa-solid fa-arrow-down text-xs text-cyan-400"></i>
+                </a>
+            </div>
+
+            <!-- Social Media Buttons Grid -->
+            <div class="flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-pink-400 hover:border-pink-500/50 hover:shadow-lg hover:shadow-pink-500/20 hover:-translate-y-1 transition-all duration-300" title="Instagram">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-red-500 hover:border-red-500/50 hover:shadow-lg hover:shadow-red-500/20 hover:-translate-y-1 transition-all duration-300" title="YouTube">
+                    <i class="fa-brands fa-youtube text-xl"></i>
+                </a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-cyan-300 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-400/20 hover:-translate-y-1 transition-all duration-300" title="TikTok">
+                    <i class="fa-brands fa-tiktok text-xl"></i>
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-purple-400 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-1 transition-all duration-300" title="GitHub">
+                    <i class="fa-brands fa-github text-xl"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="w-11 h-11 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-blue-400 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1 transition-all duration-300" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in text-xl"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. SECTION TENTANG SAYA -->
+        <section id="tentang" class="scroll-mt-28 space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Mengenal Lebih Dekat</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-100">Tentang Saya</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Main Bio Card -->
+                <div class="lg:col-span-2 glass-card rounded-3xl p-6 sm:p-8 space-y-6 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/20 transition duration-700"></div>
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                            <i class="fa-solid fa-id-card text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Profil & Biodata Ringkas</h3>
+                    </div>
+
+                    <p class="text-slate-300 leading-relaxed font-light">
+                        Halo! Saya <strong class="text-white font-medium">Rizqi Dwi Kurniawan</strong>. Saya seorang pelajar berdedikasi yang selalu penasaran dengan hal-hal baru. Saya memiliki ketertarikan mendalam terhadap evolusi dunia digital dan teknologi modern, tanpa melupakan pentingnya aspek agrikultur berkelanjutan serta kesehatan jasmani melalui olahraga.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-3.5 rounded-2xl bg-space-800/60 border border-slate-700/50 flex items-center gap-3">
+                            <i class="fa-solid fa-graduation-cap text-cyan-400 text-lg"></i>
+                            <div>
+                                <div class="text-xs text-slate-400">Status Pendidikan</div>
+                                <div class="text-sm font-semibold text-slate-200">Pelajar Aktif</div>
+                            </div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-space-800/60 border border-slate-700/50 flex items-center gap-3">
+                            <i class="fa-solid fa-location-dot text-indigo-400 text-lg"></i>
+                            <div>
+                                <div class="text-xs text-slate-400">Domisili</div>
+                                <div class="text-sm font-semibold text-slate-200">Indonesia</div>
+                            </div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-space-800/60 border border-slate-700/50 flex items-center gap-3">
+                            <i class="fa-solid fa-heart text-pink-400 text-lg"></i>
+                            <div>
+                                <div class="text-xs text-slate-400">Minat Utama</div>
+                                <div class="text-sm font-semibold text-slate-200">Tech, Sawit & Sepak Bola</div>
+                            </div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-space-800/60 border border-slate-700/50 flex items-center gap-3">
+                            <i class="fa-solid fa-brain text-emerald-400 text-lg"></i>
+                            <div>
+                                <div class="text-xs text-slate-400">Gaya Belajar</div>
+                                <div class="text-sm font-semibold text-slate-200">Eksploratif & Praktikal</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Highlights & Stats -->
+                <div class="space-y-6">
+                    <div class="glass-card rounded-3xl p-6 space-y-4">
+                        <h4 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-star text-amber-400"></i> Nilai Diri & Prinsip
+                        </h4>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-cyan-400 mt-1"></i>
+                                <span><strong>Konsisten:</strong> Selalu menyelesaikan apa yang dimulai dengan disiplin tinggi.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-cyan-400 mt-1"></i>
+                                <span><strong>Adaptif:</strong> Cepat beradaptasi dengan perkembangan teknologi baru.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-cyan-400 mt-1"></i>
+                                <span><strong>Kerja Sama:</strong> Menyukai kolaborasi tim seperti dalam permainan sepak bola.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Counter Badges -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card p-4 rounded-2xl text-center">
+                            <div class="text-2xl font-extrabold text-cyan-400 mb-1">100%</div>
+                            <div class="text-xs text-slate-400">Semangat Belajar</div>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl text-center">
+                            <div class="text-2xl font-extrabold text-indigo-400 mb-1">24/7</div>
+                            <div class="text-xs text-slate-400">Rasa Ingin Tahu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SECTION KEHIDUPAN SAYA -->
+        <section id="kehidupan" class="scroll-mt-28 space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Perjalanan & Pengalaman</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-100">Kehidupan Saya</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 sm:p-10 relative">
+                <div class="relative border-l-2 border-slate-700/80 ml-3 sm:ml-6 space-y-10">
+
+                    <!-- Timeline Item 1 -->
+                    <div class="relative pl-6 sm:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-space-900 group-hover:scale-125 group-hover:bg-cyan-300 transition-all duration-300 shadow-md shadow-cyan-500/50"></div>
+                        <div class="space-y-2">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                                Langkah Awal
+                            </span>
+                            <h3 class="text-xl font-bold text-white">Masa Perkembangan & Belajar</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Tumbuh dengan rasa ingin tahu tinggi terhadap berbagai bidang. Sejak awal, saya suka mengamati bagaimana hal-hal di sekitar saya bekerja—mulai dari perangkat elektronik sederhana hingga aktivitas lapangan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="relative pl-6 sm:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-500 border-4 border-space-900 group-hover:scale-125 group-hover:bg-emerald-300 transition-all duration-300 shadow-md shadow-emerald-500/50"></div>
+                        <div class="space-y-2">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                Wawasan Lingkungan & Sawit
+                            </span>
+                            <h3 class="text-xl font-bold text-white">Ketertarikan pada Perkebunan Sawit</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Mengenal sektor agrikultur, khususnya pengelolaan kelapa sawit. Memahami betapa vitalnya komoditas ini dan membayangkan bagaimana teknologi modern dapat diterapkan untuk produktivitas yang efisien dan ramah lingkungan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="relative pl-6 sm:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-indigo-500 border-4 border-space-900 group-hover:scale-125 group-hover:bg-indigo-300 transition-all duration-300 shadow-md shadow-indigo-500/50"></div>
+                        <div class="space-y-2">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">
+                                Kedisiplinan & Olahraga
+                            </span>
+                            <h3 class="text-xl font-bold text-white">Dunia Sepak Bola & Olahraga</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Sepak bola mengajari saya tentang sportivitas, strategi, daya tahan fisik, serta pentingnya kekompakan tim. Lapangan adalah tempat saya mengasah jiwa kepemimpinan dan semangat pantang menyerah.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 4 -->
+                    <div class="relative pl-6 sm:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-purple-500 border-4 border-space-900 group-hover:scale-125 group-hover:bg-purple-300 transition-all duration-300 shadow-md shadow-purple-500/50"></div>
+                        <div class="space-y-2">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                                Masa Kini & Masa Depan
+                            </span>
+                            <h3 class="text-xl font-bold text-white">Eksplorasi Teknologi Masa Depan</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Saat ini fokus memperdalam kemampuan di dunia digital, berkolaborasi dengan teman sebaya, serta terus membangun portofolio pribadi untuk meraih cita-cita yang lebih tinggi.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SECTION HOBI & MINAT (With Specific Custom Backgrounds) -->
+        <section id="hobi" class="scroll-mt-28 space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Aktivitas & Passion</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-100">Hobi & Minat Saya</h2>
+                <p class="text-slate-400 text-sm max-w-lg mx-auto">Klik kartu di bawah ini untuk melihat detail serta pengalaman saya dalam setiap hobi!</p>
+                <div class="w-16 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Grid Cards for Hobbies -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- CARD 1: SEPAK BOLA (Stadium Night Glow Background) -->
+                <div onclick="openHobbyDetail('football')" class="glass-card glass-card-hover rounded-3xl overflow-hidden cursor-pointer group relative min-h-[300px] flex flex-col justify-end p-6 border border-blue-500/30">
+                    <!-- Dynamic Background Image -->
+                    <div class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1200&auto=format&fit=crop');"></div>
+                    <!-- Gradient Dark Overlay -->
+                    <div class="absolute inset-0 z-0 bg-gradient-to-t from-space-900 via-space-900/80 to-transparent"></div>
+                    
+                    <div class="relative z-10 space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600/30 backdrop-blur-md border border-blue-400/50 flex items-center justify-center text-blue-400 text-2xl shadow-lg">
+                            <i class="fa-solid fa-futbol"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">Sepak Bola</h3>
+                        <p class="text-slate-300 text-sm line-clamp-2">
+                            Mengolah si kulit bundar di lapangan hijau malam hari. Melatih stamina, kerja sama tim, dan kepemimpinan.
+                        </p>
+                        <div class="flex items-center text-xs font-semibold text-cyan-400 gap-2 pt-2">
+                            <span>Lihat Detail Hobi</span>
+                            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: KELAPA SAWIT (Palm Oil Plantation Background) -->
+                <div onclick="openHobbyDetail('sawit')" class="glass-card glass-card-hover rounded-3xl overflow-hidden cursor-pointer group relative min-h-[300px] flex flex-col justify-end p-6 border border-emerald-500/30">
+                    <!-- Dynamic Background Image -->
+                    <div class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1200&auto=format&fit=crop');"></div>
+                    <!-- Gradient Dark Overlay -->
+                    <div class="absolute inset-0 z-0 bg-gradient-to-t from-space-900 via-space-900/80 to-transparent"></div>
+
+                    <div class="relative z-10 space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-600/30 backdrop-blur-md border border-emerald-400/50 flex items-center justify-center text-emerald-400 text-2xl shadow-lg">
+                            <i class="fa-solid fa-tree"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors">Perkebunan Sawit</h3>
+                        <p class="text-slate-300 text-sm line-clamp-2">
+                            Menjelajahi potensi perkebunan kelapa sawit, proses perawatan agrikultur, dan inovasi hasil panen.
+                        </p>
+                        <div class="flex items-center text-xs font-semibold text-emerald-400 gap-2 pt-2">
+                            <span>Lihat Detail Hobi</span>
+                            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3: TEKNOLOGI & CODING (Matrix Cyber Neon Background) -->
+                <div onclick="openHobbyDetail('tech')" class="glass-card glass-card-hover rounded-3xl overflow-hidden cursor-pointer group relative min-h-[300px] flex flex-col justify-end p-6 border border-cyan-500/30">
+                    <!-- Dynamic Background Image -->
+                    <div class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop');"></div>
+                    <!-- Gradient Dark Overlay -->
+                    <div class="absolute inset-0 z-0 bg-gradient-to-t from-space-900 via-space-900/80 to-transparent"></div>
+
+                    <div class="relative z-10 space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-600/30 backdrop-blur-md border border-cyan-400/50 flex items-center justify-center text-cyan-400 text-2xl shadow-lg">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">Teknologi & Coding</h3>
+                        <p class="text-slate-300 text-sm line-clamp-2">
+                            Eksplorasi pengembangan web, pemrograman komputer, dan gadget modern terkini.
+                        </p>
+                        <div class="flex items-center text-xs font-semibold text-cyan-400 gap-2 pt-2">
+                            <span>Lihat Detail Hobi</span>
+                            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4: MUSIK & AMBIENT (Modern Sound Ambient Background) -->
+                <div onclick="openHobbyDetail('music')" class="glass-card glass-card-hover rounded-3xl overflow-hidden cursor-pointer group relative min-h-[300px] flex flex-col justify-end p-6 border border-purple-500/30">
+                    <!-- Dynamic Background Image -->
+                    <div class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop');"></div>
+                    <!-- Gradient Dark Overlay -->
+                    <div class="absolute inset-0 z-0 bg-gradient-to-t from-space-900 via-space-900/80 to-transparent"></div>
+
+                    <div class="relative z-10 space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-600/30 backdrop-blur-md border border-purple-400/50 flex items-center justify-center text-purple-400 text-2xl shadow-lg">
+                            <i class="fa-solid fa-headphones"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">Musik & Santai</h3>
+                        <p class="text-slate-300 text-sm line-clamp-2">
+                            Mendengarkan musik favorit untuk relaksasi, menjaga fokus, dan mencari inspirasi ide-ide baru.
+                        </p>
+                        <div class="flex items-center text-xs font-semibold text-purple-400 gap-2 pt-2">
+                            <span>Lihat Detail Hobi</span>
+                            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-slate-800 bg-space-900/80 backdrop-blur-md py-8 text-center text-slate-400 text-sm">
+        <div class="max-w-6xl mx-auto px-4 space-y-3">
+            <p>© 2026 <strong class="text-slate-200">Rizqi Dwi Kurniawan</strong>. Dibuat dengan tema Bintang Biru Luar Angkasa.</p>
+            <p class="text-xs text-slate-500">Didesain khusus untuk profil interaktif, modern, dan penuh estetika.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: CONTACT CHOICES MODAL -->
+    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-space-900/80 backdrop-blur-md transition-all">
+        <div class="glass-card max-w-lg w-full rounded-3xl p-6 sm:p-8 space-y-6 relative border border-cyan-500/30 shadow-2xl animate-glow">
+            <!-- Close Button -->
+            <button onclick="closeContactModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="space-y-2">
+                <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Terhubung Sekarang</span>
+                <h3 class="text-2xl font-bold text-white">Hubungi Rizqi Dwi K.</h3>
+                <p class="text-slate-300 text-sm">Pilih saluran komunikasi yang kamu sukai di bawah ini:</p>
+            </div>
+
+            <!-- Contact Options Buttons -->
+            <div class="grid grid-cols-1 gap-3">
+                <a href="https://wa.me/6281234567890?text=Halo%20Rizqi%20Dwi%20Kurniawan,%20saya%20tertarik%20berkenalan!" target="_blank" class="flex items-center justify-between p-4 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-medium transition group">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-2xl text-emerald-400"></i>
+                        <div>
+                            <div class="text-sm font-bold">WhatsApp Direct</div>
+                            <div class="text-xs text-emerald-400/80">Pesan cepat via WhatsApp</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </a>
+
+                <a href="mailto:rizqidwi@example.com?subject=Tanya%20Profil%20Rizqi" class="flex items-center justify-between p-4 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 font-medium transition group">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope text-2xl text-cyan-400"></i>
+                        <div>
+                            <div class="text-sm font-bold">Kirim Email</div>
+                            <div class="text-xs text-cyan-400/80">rizqidwi@example.com</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <!-- Quick Direct Message Form -->
+            <div class="border-t border-slate-700/60 pt-4 space-y-3">
+                <h4 class="text-sm font-bold text-slate-200">Kirim Pesan Langsung</h4>
+                <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-3">
+                    <input type="text" id="senderName" required placeholder="Nama Anda" class="w-full px-4 py-2.5 rounded-xl bg-space-800/80 border border-slate-700 text-slate-200 text-sm focus:outline-none focus:border-cyan-400">
+                    <textarea id="senderMessage" required rows="3" placeholder="Pesan untuk Rizqi..." class="w-full px-4 py-2.5 rounded-xl bg-space-800/80 border border-slate-700 text-slate-200 text-sm focus:outline-none focus:border-cyan-400"></textarea>
+                    <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm shadow-md transition">
+                        Kirim Pesan Simulasi
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: HOBBY DETAIL PREVIEW MODAL -->
+    <div id="hobbyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-space-900/85 backdrop-blur-md transition-all">
+        <div class="glass-card max-w-xl w-full rounded-3xl overflow-hidden relative border border-slate-700 shadow-2xl">
+            <!-- Dynamic Banner Background -->
+            <div id="hobbyBanner" class="h-48 bg-cover bg-center relative p-6 flex items-end">
+                <div class="absolute inset-0 bg-gradient-to-t from-space-900 via-space-900/60 to-transparent"></div>
+                <button onclick="closeHobbyModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-space-900/70 text-slate-300 hover:text-white flex items-center justify-center backdrop-blur-md z-10">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="relative z-10 flex items-center gap-3">
+                    <div id="hobbyIconBadge" class="w-12 h-12 rounded-2xl glass-card flex items-center justify-center text-2xl text-cyan-400">
+                        <!-- Icon injected via JS -->
+                    </div>
+                    <div>
+                        <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider">Detail Hobi</span>
+                        <h3 id="hobbyTitle" class="text-2xl font-bold text-white">Title</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6 space-y-4">
+                <p id="hobbyDescription" class="text-slate-300 text-sm leading-relaxed">
+                    Description goes here...
+                </p>
+
+                <div class="bg-space-800/80 rounded-2xl p-4 border border-slate-700/60 space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-slate-400">Mengapa Saya Menyukainya?</h4>
+                    <p id="hobbyReason" class="text-slate-200 text-sm font-medium">
+                        Reason text...
+                    </p>
+                </div>
+
+                <div class="flex justify-end pt-2">
+                    <button onclick="closeHobbyModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium transition">
+                        Tutup Window
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ========================================================
+           1. STARFIELD ANIMATION ENGINE (Blue Space Theme)
+           ======================================================== */
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        let numStars = 150;
+        let speedMultiplier = 1.0;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.z = Math.random() * canvas.width;
+                this.radius = Math.random() * 1.6 + 0.4;
+                // Shades of cosmic blue, cyan, white
+                const colors = ['#ffffff', '#38bdf8', '#60a5fa', '#93c5fd', '#818cf8', '#a5b4fc'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.alpha = Math.random() * 0.8 + 0.2;
+                this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+            }
+
+            update() {
+                this.x += this.speedX * speedMultiplier;
+                this.y += this.speedY * speedMultiplier;
+
+                // Twinkle effect
+                this.alpha += this.twinkleSpeed;
+                if (this.alpha > 1 || this.alpha < 0.2) {
+                    this.twinkleSpeed = -this.twinkleSpeed;
+                }
+
+                // Wrap around edges
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, Math.min(1, this.alpha));
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initStars() {
+            stars = [];
+            // Adjust star density based on screen size
+            numStars = Math.floor((canvas.width * canvas.height) / 7000);
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        // Nebula Background Glow Effect
+        function drawNebula() {
+            const grad1 = ctx.createRadialGradient(
+                canvas.width * 0.2, canvas.height * 0.3, 50,
+                canvas.width * 0.2, canvas.height * 0.3, canvas.width * 0.5
+            );
+            grad1.addColorStop(0, 'rgba(56, 189, 248, 0.08)');
+            grad1.addColorStop(1, 'rgba(3, 7, 18, 0)');
+
+            const grad2 = ctx.createRadialGradient(
+                canvas.width * 0.8, canvas.height * 0.7, 50,
+                canvas.width * 0.8, canvas.height * 0.7, canvas.width * 0.5
+            );
+            grad2.addColorStop(0, 'rgba(99, 102, 241, 0.08)');
+            grad2.addColorStop(1, 'rgba(3, 7, 18, 0)');
+
+            ctx.fillStyle = grad1;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = grad2;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function animateStarfield() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawNebula();
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(animateStarfield);
+        }
+
+        function setStarSpeed(speed) {
+            speedMultiplier = speed;
+        }
+
+        function toggleStarControls() {
+            const controls = document.getElementById('starControls');
+            controls.classList.toggle('hidden');
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        /* ========================================================
+           2. INTERACTIVE MODAL & HOBBY DATA
+           ======================================================== */
+        const hobbyData = {
+            football: {
+                title: "Sepak Bola & Olahraga",
+                icon: "fa-solid fa-futbol",
+                color: "text-blue-400",
+                bgImage: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1200&auto=format&fit=crop",
+                description: "Sepak bola bagi saya lebih dari sekadar permainan fisik. Ini adalah sarana mengasah koordinasi tim, kecepatan berpikir dalam mengambil keputusan, serta membangun kebugaran tubuh secara optimal di bawah kilauan lampu stadion.",
+                reason: "Melatih kepemimpinan, sportivitas, daya tahan fisik, dan membangun kekeluargaan yang erat dengan sesama rekan tim."
+            },
+            sawit: {
+                title: "Perkebunan Kelapa Sawit",
+                icon: "fa-solid fa-tree",
+                color: "text-emerald-400",
+                bgImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1200&auto=format&fit=crop",
+                description: "Tertarik pada industri kelapa sawit yang menjadi tulang punggung agrikultur. Bersemangat mempelajari cara budidaya yang efisien, proses pemanenan, hingga manajemen kebun sawit yang produktif serta ramah lingkungan.",
+                reason: "Melihat potensi ekonomi yang besar dan peluang modernisasi industri sawit dengan integrasi ilmu teknologi."
+            },
+            tech: {
+                title: "Teknologi & Coding",
+                icon: "fa-solid fa-code",
+                color: "text-cyan-400",
+                bgImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
+                description: "Selalu tertarik bereksplorasi di dunia pemrograman web, perangkat lunak, dan perkembangan gadget modern. Mengubah baris kode menjadi tampilan aplikasi yang berguna dan estetis.",
+                reason: "Teknologi adalah kunci masa depan. Memungkinkan saya menciptakan solusi inovatif hanya dari sebuah laptop."
+            },
+            music: {
+                title: "Musik & Ambient Focus",
+                icon: "fa-solid fa-headphones",
+                color: "text-purple-400",
+                bgImage: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
+                description: "Mendengarkan alunan musik berkualitas untuk mengisi waktu luang, menjaga konsentrasi saat belajar, serta menyegarkan pikiran setelah beraktivitas seharian.",
+                reason: "Memberikan ketenangan pikiran, memicu inspirasi kreatif, dan menjaga keceriaan suasana hati."
+            }
+        };
+
+        function openHobbyDetail(key) {
+            const data = hobbyData[key];
+            if (!data) return;
+
+            document.getElementById('hobbyTitle').innerText = data.title;
+            document.getElementById('hobbyDescription').innerText = data.description;
+            document.getElementById('hobbyReason').innerText = data.reason;
+            document.getElementById('hobbyBanner').style.backgroundImage = `url('${data.bgImage}')`;
+            
+            const iconBadge = document.getElementById('hobbyIconBadge');
+            iconBadge.innerHTML = `<i class="${data.icon}"></i>`;
+            iconBadge.className = `w-12 h-12 rounded-2xl glass-card flex items-center justify-center text-2xl ${data.color}`;
+
+            document.getElementById('hobbyModal').classList.remove('hidden');
+        }
+
+        function closeHobbyModal() {
+            document.getElementById('hobbyModal').classList.add('hidden');
+        }
+
+        function openContactModal() {
+            document.getElementById('contactModal').classList.remove('hidden');
+        }
+
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('senderName').value;
+            
+            // Custom toast notification simulation instead of alert()
+            closeContactModal();
+            showToast(`Terima kasih ${name}! Pesan Anda telah terkirim.`);
+            document.getElementById('contactForm').reset();
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-10 left-1/2 -translate-x-1/2 z-50 glass-card border border-cyan-400/50 text-cyan-200 px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 animate-bounce';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> <span>${message}</span>`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        /* Close modals on ESC key */
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeContactModal();
+                closeHobbyModal();
+            }
+        });
+
+        // Initialize animation on load
+        window.onload = function() {
+            resizeCanvas();
+            animateStarfield();
+        };
+    </script>
+</body>
+</html>
+```

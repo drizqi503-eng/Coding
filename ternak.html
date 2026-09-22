@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telur Segar Farm - Agen & Grosir Telur</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #fcfaf7;
+        }
+
+        /* Navigasi */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #d97706;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('logo.jpg') center/cover no-repeat;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-btn {
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #f59e0b;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #b45309;
+        }
+
+        /* Kartu Produk */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.2rem;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            color: #d97706;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        /* Form Pemesanan */
+        .order-form {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 3rem auto 1rem auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            background-color: #d97706;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #78350f;
+            color: #fff;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <nav class="navbar">
+        <div class="logo">Rizqi Farm
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#produk">Produk</a></li>
+            <li><a href="#pesan">Pesan</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <h1>Telur Segar Langsung dari Peternakan</h1>
+        <p>Dijamin bersih, berkualitas, dan dipanen setiap hari untuk menjaga kesegaran.</p>
+        <a href="#produk" class="cta-btn">Lihat Harga & Produk</a>
+    </header>
+
+    <!-- Daftar Produk Telur -->
+    <main class="container" id="produk">
+        <h2 class="section-title">Pilihan Telur Peternakan</h2>
+        <div class="products">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=500&q=80" alt="Telur Ayam Negeri">
+                <div class="card-body">
+                    <h3>Telur Ayam Merah</h3>
+                    <p class="price">Rp 28.000 / kg</p>
+                    <p>Telur pilihan dari pakan berkualitas tinggi. Cocok untuk konsumsi harian keluarga atau usaha kuliner.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=500&q=80" alt="Telur Ayam Merah">
+                <div class="card-body">
+                    <h3>Telur Ayam Merah</h3>
+                    <p class="price">Rp 2.500 / butir</p>
+                    <p>Telur ayam kampung asli. Kaya nutrisi, sangat baik untuk kesehatan, jamu, dan stamina.</p>
+                </div>
+            </div>
+            <div class="card">
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Pemesanan -->
+        <section id="pesan" class="order-form">
+            <h2 class="section-title">Formulir Pemesanan</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required>
+                </div>
+                <div class="form-group">
+                    <label for="hp">No Whatsapp</label>
+                    <input type="tel" id="hp" name="hp" placeholder="Contoh: 08123456789" required>
+                </div>
+                <div class="form-group">
+                    <label for="jenis">Pilih Jenis Telur</label>
+                    <select id="jenis" name="jenis" required>
+                        <option value="">-- Pilih Jenis Telur --</option>
+                        <option value="Ayam Negeri">Telur Ayam Merah Per Kg</option>
+                        <option value="Ayam Kampung">Telur Ayam Merah Eceran</option>
+            
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="jumlah">Jumlah Pemesanan (Kg / Butir / Kotak)</label>
+                    <input type="text" id="jumlah" name="jumlah" placeholder="Contoh: 5 kg atau 2 kotak" required>
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat Pengiriman</label>
+                    <textarea id="alamat" name="alamat" rows="3" placeholder="Masukkan alamat lengkap" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Kirim Pesanan</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Peternakan Telur Segar. Melayani Pembelian Eceran & Grosir.</p>
+    </footer>
+
+</body>
+</html>
